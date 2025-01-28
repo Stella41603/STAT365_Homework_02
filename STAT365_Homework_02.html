@@ -14262,7 +14262,7 @@ a.anchor-link {
 <h1 id="Homework">Homework<a class="anchor-link" href="#Homework">&#182;</a></h1><hr>
 <h2 id="Q1">Q1<a class="anchor-link" href="#Q1">&#182;</a></h2><p>The <em>Gibbs sampler</em> in class for the prior $p(\theta,\tau) \propto 1$ was created by alternatingly sampling from the <em>full conditional</em> $p(\theta|\tau,\textbf{x})$ <em>normal</em> and  $p(\tau|\theta,\textbf{x})$ <em>gamma</em> distributions. Create this <em>Gibbs sampler</em> so your code can be used for the sample <code>x = stats.norm(loc=m, scale=s).rvs(size=n)</code> for any arbitrary <code>n</code>, <code>m</code>, and <code>s</code>.</p>
 <p><em>Use the code below or your own code to <u>provide a demonstration of Bayesian inference<u> for this data and model specification.</em></p>
-<h2 id="Q1.-Answer">Q1. Answer<a class="anchor-link" href="#Q1.-Answer">&#182;</a></h2><p>We see from the plots below that after a few initial steps, the chains converge (in distribution) to some posterior distribution. We showed the means and standard deviations as the important statistics of the posterior distributions, for further comparison with Question 2.</p>
+<h2 id="Q1.-Answer">Q1. Answer<a class="anchor-link" href="#Q1.-Answer">&#182;</a></h2><p>We see from the plots below that after a few initial steps, the chains converge (in distribution) to some posterior distribution. We showed the means and standard deviations as the important statistics, and 95% confidence intervals of the posterior distributionsfor further comparison with Question 2.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14404,6 +14404,43 @@ a.anchor-link {
 
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;95% confidence interval for theta:[</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">0.25</span><span class="p">)</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">97.5</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;95% confidence interval for tau:[</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">tau</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">0.25</span><span class="p">)</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">tau</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">97.5</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>95% confidence interval for theta:[0.04812441760476176,0.11842953465978408]
+95% confidence interval for tau:[75.22763472909548,269.53358219567497]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -14433,12 +14470,14 @@ p(\theta| \sigma^2 = \tau^{-1}, x) = {} &amp; N\left(E[\theta] = \frac{\bar x+\t
 <p>We see that the parameter $\tau_0$ plays the role of prior sample variance of and $\theta_0$ plays the role of prior sample mean of $x$. It is weighted as one additional sample in the posterior distribution of $\theta$</p>
 <p>$\alpha$ plays the role of prior sample size and $\lambda $ plays the role of prior sample variance of $\tau$</p>
 <p>We see from the plots and print-outs that the means and standard deviations of the posertior distributions of $\theta,\tau$ are different from what we obtained in Question 1, after we modified the prior distribution, especially when we chose a large $\alpha$ parameter.</p>
+<p>The 95% confidence intervals for $\theta$ has roughly the same mean, but very different width compared with that in Question 1.</p>
+<p>The 95% confidence intervals for $\tau$ has very different mean and width compared with that in Question 1.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Question 2</span>
@@ -14475,7 +14514,7 @@ p(\theta| \sigma^2 = \tau^{-1}, x) = {} &amp; N\left(E[\theta] = \frac{\bar x+\t
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">3</span><span class="p">));</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">theta$ Burn-In&quot;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">tau$ Burn-In&quot;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">theta$ Converged Markov Chain</span><span class="se">\n</span><span class="s2">Stationary Distribution Samples&quot;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">tau$ Converged Markov Chain</span><span class="se">\n</span><span class="s2">Stationary Distribution Samples&quot;</span><span class="p">)</span>
@@ -14522,7 +14561,7 @@ p(\theta| \sigma^2 = \tau^{-1}, x) = {} &amp; N\left(E[\theta] = \frac{\bar x+\t
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -14568,6 +14607,43 @@ p(\theta| \sigma^2 = \tau^{-1}, x) = {} &amp; N\left(E[\theta] = \frac{\bar x+\t
 82.45306594630357
 553.4424287227503
 83.88247338241432
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;95% confidence interval for theta:[</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">0.25</span><span class="p">)</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">97.5</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;95% confidence interval for tau:[</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">tau</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">0.25</span><span class="p">)</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">tau</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">burn</span><span class="p">:</span><span class="n">G</span><span class="p">],</span> <span class="mf">97.5</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>95% confidence interval for theta:[0.06802928688331351,0.10624721279218238]
+95% confidence interval for tau:[354.6687206349299,728.4914677149845]
 </pre>
 </div>
 </div>
